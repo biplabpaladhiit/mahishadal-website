@@ -1,14 +1,14 @@
 /* =========================================================
-   Mahishadal Heritage — site behaviour
-   Edit the FESTIVALS array below with your real dates.
-   Everything else (countdown plaque + event list) updates itself.
+   Mahishadal Heritage — সাইট বিহেভিয়ার
+   নিচের FESTIVALS তালিকায় আপনার আসল তারিখ ও বিবরণ বসান।
+   বাকি সব (কাউন্টডাউন প্লেট + উৎসব তালিকা) নিজে থেকেই আপডেট হবে।
    ========================================================= */
 
 const FESTIVALS = [
-  { name: "Mahishadal Rathyatra", date: "2026-07-05", description: "The town's chariot festival, drawing visitors from across the district." },
-  { name: "Durga Puja", date: "2026-10-19", description: "Community pujas across Mahishadal, including at the Rajbari." },
-  { name: "Poush Mela", date: "2026-12-27", description: "Winter fair with local crafts, food stalls, and folk performances." },
-  // Add more festivals here as { name, date: "YYYY-MM-DD", description }
+  { name: "মহিষাদল রথযাত্রা", date: "2026-07-05", description: "শহরের নিজস্ব রথযাত্রা উৎসব, যা জেলা জুড়ে দর্শনার্থী টেনে আনে।" },
+  { name: "দুর্গাপূজা", date: "2026-10-19", description: "মহিষাদল জুড়ে সাম্প্রদায়িক পূজা, রাজবাড়িতেও অনুষ্ঠিত হয়।" },
+  { name: "পৌষ মেলা", date: "2026-12-27", description: "শীতকালীন মেলা — স্থানীয় হস্তশিল্প, খাবারের স্টল ও লোকসংগীত সহ।" },
+  // এখানে { name, date: "YYYY-MM-DD", description } আকারে নতুন উৎসব যোগ করুন
 ];
 
 function daysUntil(dateStr) {
@@ -21,7 +21,8 @@ function daysUntil(dateStr) {
 
 function formatDate(dateStr) {
   const d = new Date(dateStr);
-  return d.toLocaleDateString("en-IN", { day: "numeric", month: "short" });
+  // bn-BD লোকেল বাংলা সংখ্যা ও মাসের নাম দেখায় (যেমন: ৫ জুলাই)
+  return d.toLocaleDateString("bn-BD", { day: "numeric", month: "short" });
 }
 
 function renderFestivalPlaque() {
@@ -35,14 +36,14 @@ function renderFestivalPlaque() {
   if (!nameEl || !countEl) return;
 
   if (upcoming.length === 0) {
-    nameEl.textContent = "New festival dates coming soon";
+    nameEl.textContent = "নতুন উৎসবের তারিখ শীঘ্রই আসছে";
     countEl.textContent = "—";
     return;
   }
 
   const next = upcoming[0];
   nameEl.textContent = next.name;
-  countEl.textContent = next.days === 0 ? "Today" : `${next.days} day${next.days === 1 ? "" : "s"} to go`;
+  countEl.textContent = next.days === 0 ? "আজ" : `আর ${next.days} দিন বাকি`;
 }
 
 function renderEventList() {
@@ -75,7 +76,7 @@ function setupNavToggle() {
     toggle.setAttribute("aria-expanded", String(isOpen));
   });
 
-  // Close menu after tapping a link (useful on mobile)
+  // মোবাইলে লিঙ্কে ট্যাপ করার পর মেনু বন্ধ হয়ে যাবে
   nav.querySelectorAll("a").forEach(link => {
     link.addEventListener("click", () => {
       nav.classList.remove("open");
