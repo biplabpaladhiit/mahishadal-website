@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mahishadal — heritage of West Bengal</title>
+<meta name="description" content="Explore Mahishadal's Rajbari palace, terracotta temples, and living festivals. Plan your visit, see the festival calendar, and discover local shops.">
+
+<!-- Replace with your own domain / social preview image once live -->
+<meta property="og:title" content="Mahishadal — heritage of West Bengal">
+<meta property="og:description" content="A tourist guide to the palaces, temples and festivals of Mahishadal.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="container">
+    <a href="#" class="logo">Mahishadal<span>.</span></a>
+    <nav class="main-nav" id="main-nav">
+      <ul>
+        <li><a href="#history">History</a></li>
+        <li><a href="#heritage">Heritage sites</a></li>
+        <li><a href="#festivals">Festivals</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#promotions">Local shops</a></li>
+        <li><a href="#visit">Plan your visit</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-silhouette" aria-hidden="true"></div>
+  <div class="container">
+    <p class="eyebrow">Purba Medinipur, West Bengal</p>
+    <h1>Where history still lives</h1>
+    <p class="lead">Walk the courtyards of a two-century-old Rajbari, trace terracotta carvings older than memory, and time your trip to Mahishadal's own festivals.</p>
+    <div class="hero-actions">
+      <a href="#visit" class="btn btn-primary">Plan your visit</a>
+      <a href="#festivals" class="btn btn-ghost">See upcoming festivals</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FESTIVAL COUNTDOWN PLAQUE ============ -->
+<section class="plaque-band">
+  <div class="container plaque">
+    <div>
+      <p class="plaque-label">Next on the calendar</p>
+      <p class="plaque-name" id="next-festival-name">Loading…</p>
+    </div>
+    <div class="plaque-count" id="next-festival-count">—</div>
+  </div>
+</section>
+
+<!-- ============ HISTORY TEASER ============ -->
+<section class="section on-sand" id="history">
+  <div class="container history-grid">
+    <div>
+      <p class="eyebrow">A brief history</p>
+      <h2>From zamindari seat to living heritage</h2>
+      <p>Mahishadal grew around the estate of its zamindars, whose Rajbari still anchors the town today. Its temples, built in brick and carved terracotta, record two centuries of craft, patronage and everyday devotion.</p>
+      <p>Replace this paragraph with your own researched history — dates, names, and the stories local families still tell.</p>
+      <a href="#" class="btn btn-outline">Read the full history</a>
+    </div>
+    <div class="history-frame">
+      <span>Add a photo of the Rajbari here</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HERITAGE SITES ============ -->
+<section class="section" id="heritage">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Where to go</p>
+      <h2>Heritage sites worth the trip</h2>
+      <p>Three places to start — swap in real photos and directions once you have them.</p>
+    </div>
+    <div class="card-grid">
+      <article class="site-card">
+        <div class="site-card-image"></div>
+        <div class="site-card-body">
+          <h3>Mahishadal Rajbari</h3>
+          <p>The palace of the former zamindars, with courtyards, durbar hall, and family temple.</p>
+          <a href="#">View details &rarr;</a>
+        </div>
+      </article>
+      <article class="site-card">
+        <div class="site-card-image"></div>
+        <div class="site-card-body">
+          <h3>Terracotta temples</h3>
+          <p>Carved brick temples depicting epics and everyday life, built by the estate's patrons.</p>
+          <a href="#">View details &rarr;</a>
+        </div>
+      </article>
+      <article class="site-card">
+        <div class="site-card-image"></div>
+        <div class="site-card-body">
+          <h3>Rupnarayan riverside</h3>
+          <p>The ghats and riverbank that shaped the town's trade and daily life.</p>
+          <a href="#">View details &rarr;</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FESTIVALS & EVENTS ============ -->
+<section class="section on-dusk" id="festivals">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">What's on</p>
+      <h2>Festivals and events</h2>
+      <p>Update the dates array in script.js — the countdown above and this list both read from it.</p>
+    </div>
+    <div class="event-list" id="event-list">
+      <!-- Rows are also rendered by script.js; static markup here is a fallback / SEO copy -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOCAL PROMOTIONS / ADS ============ -->
+<section class="section on-dusk" id="promotions" style="padding-top:0;">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Supported by</p>
+      <h2>Local shops, committees and events</h2>
+      <p>This space carries paid listings for local businesses and community committees. Contact us to feature yours.</p>
+    </div>
+    <div class="ad-grid">
+      <div class="ad-slot filled">
+        <strong>Your shop name</strong>
+        <p>Short description, phone number, or a link to a menu / catalogue.</p>
+      </div>
+      <div class="ad-slot filled">
+        <strong>Puja committee name</strong>
+        <p>Promote your committee's events and collection drives here.</p>
+      </div>
+      <div class="ad-slot">
+        <strong>Advertise here</strong>
+        <p>Contact us to book this space.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="section on-sand" id="gallery">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">In pictures</p>
+      <h2>Gallery</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-tile"></div>
+      <div class="gallery-tile"></div>
+      <div class="gallery-tile"></div>
+      <div class="gallery-tile"></div>
+      <div class="gallery-tile"></div>
+      <div class="gallery-tile"></div>
+      <div class="gallery-tile"></div>
+      <div class="gallery-tile"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VISITOR INFO ============ -->
+<section class="section" id="visit">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Practical details</p>
+      <h2>Plan your visit</h2>
+    </div>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>Getting there</h3>
+        <p>Nearest railway station, road distance from Kolkata / Tamluk / Haldia, and local transport options.</p>
+      </div>
+      <div class="info-card">
+        <h3>Where to stay</h3>
+        <p>List nearby homestays, lodges or hotels — link out or add contact details.</p>
+      </div>
+      <div class="info-card">
+        <h3>What to eat</h3>
+        <p>Local specialities and where visitors can try them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Mahishadal</h4>
+        <p style="font-size:0.9rem; max-width:32ch;">An independent guide to the heritage, festivals and community of Mahishadal, West Bengal.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#history">History</a></li>
+          <li><a href="#heritage">Heritage sites</a></li>
+          <li><a href="#festivals">Festivals</a></li>
+          <li><a href="#promotions">Local shops</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@yourdomain.com">hello@yourdomain.com</a></li>
+          <li><a href="#">Advertise with us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Mahishadal Heritage Guide</span>
+      <div class="social-row">
+        <a href="#">Facebook</a>
+        <a href="#">Instagram</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
