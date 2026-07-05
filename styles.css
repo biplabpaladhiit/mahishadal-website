@@ -17,10 +17,13 @@
   --ink-soft: #5B5347;        /* muted text */
   --line: rgba(43, 38, 32, 0.14);
 
-  /* -- Type -- */
-  --font-display: "Fraunces", "Georgia", serif;
-  --font-body: "Source Sans 3", "Segoe UI", sans-serif;
-  --font-mono: "IBM Plex Mono", monospace;
+  /* -- Type --
+     Tiro Bangla gives headings the same carved, historic feel Fraunces gave
+     the English version. Hind Siliguri is a clean, highly readable Bengali
+     text face for body copy and UI labels. */
+  --font-display: "Tiro Bangla", "Noto Serif Bengali", serif;
+  --font-body: "Hind Siliguri", "Noto Sans Bengali", sans-serif;
+  --font-mono: "Hind Siliguri", "Noto Sans Bengali", sans-serif;
 
   /* -- Layout -- */
   --max-width: 1180px;
@@ -62,9 +65,9 @@ img { max-width: 100%; display: block; }
 
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   color: var(--terracotta);
 }
 
@@ -226,9 +229,8 @@ button, .btn {
 }
 .plaque-label {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 .plaque-name {
   font-family: var(--font-display);
