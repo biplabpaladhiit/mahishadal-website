@@ -1,98 +1,436 @@
 /* =========================================================
-   Mahishadal Heritage — সাইট বিহেভিয়ার
-   নিচের FESTIVALS তালিকায় আপনার আসল তারিখ ও বিবরণ বসান।
-   বাকি সব (কাউন্টডাউন প্লেট + উৎসব তালিকা) নিজে থেকেই আপডেট হবে।
+   Mahishadal Heritage — stylesheet
+   Palette is drawn from the town's own materials:
+   terracotta brick, lime-washed plaster, river dusk, brass carving.
    ========================================================= */
 
-const FESTIVALS = [
-  { name: "মহিষাদল রথযাত্রা", date: "2026-07-05", description: "শহরের নিজস্ব রথযাত্রা উৎসব, যা জেলা জুড়ে দর্শনার্থী টেনে আনে।" },
-  { name: "দুর্গাপূজা", date: "2026-10-19", description: "মহিষাদল জুড়ে সাম্প্রদায়িক পূজা, রাজবাড়িতেও অনুষ্ঠিত হয়।" },
-  { name: "পৌষ মেলা", date: "2026-12-27", description: "শীতকালীন মেলা — স্থানীয় হস্তশিল্প, খাবারের স্টল ও লোকসংগীত সহ।" },
-  // এখানে { name, date: "YYYY-MM-DD", description } আকারে নতুন উৎসব যোগ করুন
-];
+:root {
+  /* -- Color tokens -- */
+  --terracotta: #B5482F;      /* temple brick red — primary/signature */
+  --terracotta-dark: #8E3620;
+  --indigo-dusk: #1F4B4C;     /* river-at-dusk teal — secondary bands */
+  --indigo-dusk-dark: #163837;
+  --gold: #C1962B;            /* brass carving gold — accents, CTAs */
+  --sand: #EDE3D0;            /* lime-plaster cream — section background */
+  --paper: #FAF7F1;           /* card background */
+  --ink: #2B2620;             /* charcoal ink — body text */
+  --ink-soft: #5B5347;        /* muted text */
+  --line: rgba(43, 38, 32, 0.14);
 
-function daysUntil(dateStr) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const target = new Date(dateStr);
-  const diffMs = target - today;
-  return Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+  /* -- Type --
+     Tiro Bangla gives headings the same carved, historic feel Fraunces gave
+     the English version. Hind Siliguri is a clean, highly readable Bengali
+     text face for body copy and UI labels. */
+  --font-display: "Tiro Bangla", "Noto Serif Bengali", serif;
+  --font-body: "Hind Siliguri", "Noto Sans Bengali", sans-serif;
+  --font-mono: "Hind Siliguri", "Noto Sans Bengali", sans-serif;
+
+  /* -- Layout -- */
+  --max-width: 1180px;
+  --radius: 6px;
+  --gap: 1.5rem;
 }
 
-function formatDate(dateStr) {
-  const d = new Date(dateStr);
-  // bn-BD লোকেল বাংলা সংখ্যা ও মাসের নাম দেখায় (যেমন: ৫ জুলাই)
-  return d.toLocaleDateString("bn-BD", { day: "numeric", month: "short" });
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  font-size: 17px;
 }
 
-function renderFestivalPlaque() {
-  const upcoming = FESTIVALS
-    .map(f => ({ ...f, days: daysUntil(f.date) }))
-    .filter(f => f.days >= 0)
-    .sort((a, b) => a.days - b.days);
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+  color: var(--ink);
+}
 
-  const nameEl = document.getElementById("next-festival-name");
-  const countEl = document.getElementById("next-festival-count");
-  if (!nameEl || !countEl) return;
+p { margin: 0 0 1em; }
 
-  if (upcoming.length === 0) {
-    nameEl.textContent = "নতুন উৎসবের তারিখ শীঘ্রই আসছে";
-    countEl.textContent = "—";
-    return;
+a { color: inherit; text-decoration: none; }
+
+img { max-width: 100%; display: block; }
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--terracotta);
+}
+
+button, .btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  padding: 0.75rem 1.6rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.btn:focus-visible, a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+.btn-primary { background: var(--terracotta); color: var(--paper); }
+.btn-primary:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--paper); border-color: rgba(250,247,241,0.5); }
+.btn-ghost:hover { background: rgba(250,247,241,0.12); }
+.btn-outline { background: transparent; color: var(--terracotta); border-color: var(--terracotta); }
+.btn-outline:hover { background: var(--terracotta); color: var(--paper); }
+
+/* -- Signature motif: a temple-frieze divider, echoing the
+   terracotta carving bands found on Mahishadal's temples -- */
+.frieze {
+  height: 14px;
+  width: 100%;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--gold) 0px, var(--gold) 7px,
+    transparent 7px, transparent 14px
+  );
+  opacity: 0.85;
+}
+.frieze.on-dark { opacity: 0.5; }
+
+/* =========================================================
+   Header
+   ========================================================= */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(31, 75, 76, 0.94);
+  backdrop-filter: blur(6px);
+  color: var(--paper);
+}
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+}
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.logo span { color: var(--gold); }
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.8rem;
+  margin: 0;
+  padding: 0;
+}
+.main-nav a {
+  font-size: 0.92rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+.main-nav a:hover { opacity: 1; color: var(--gold); }
+
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--paper);
+  font-size: 1.6rem;
+  padding: 0.2rem 0.4rem;
+}
+
+/* =========================================================
+   Hero
+   ========================================================= */
+.hero {
+  position: relative;
+  background-image:
+    linear-gradient(180deg, rgba(22,56,55,0.72) 0%, rgba(22,56,55,0.88) 100%),
+    url('images/hero-mahishadal.jpg');
+  background-size: cover;
+  background-position: center 65%;
+  color: var(--paper);
+  overflow: hidden;
+}
+.hero .container {
+  position: relative;
+  z-index: 2;
+  padding-top: 5.5rem;
+  padding-bottom: 6rem;
+  max-width: 760px;
+  text-align: center;
+  margin: 0 auto;
+}
+.hero .eyebrow { color: var(--gold); }
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  color: var(--paper);
+}
+.hero p.lead {
+  font-size: 1.15rem;
+  color: rgba(250,247,241,0.85);
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Decorative temple silhouette behind the hero copy */
+.hero-silhouette {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 46%;
+  background: var(--indigo-dusk-dark);
+  clip-path: polygon(
+    0% 100%, 0% 60%, 6% 60%, 6% 40%, 10% 40%, 10% 20%, 14% 20%, 14% 0%,
+    18% 0%, 18% 30%, 24% 30%, 24% 50%, 32% 50%, 32% 25%, 38% 25%, 38% 5%,
+    44% 5%, 44% 35%, 52% 35%, 52% 15%, 58% 15%, 58% 45%, 66% 45%, 66% 20%,
+    72% 20%, 72% 0%, 76% 0%, 76% 20%, 82% 20%, 82% 40%, 88% 40%, 88% 60%,
+    94% 60%, 94% 45%, 100% 45%, 100% 100%
+  );
+  opacity: 0.6;
+}
+
+/* =========================================================
+   Festival countdown plaque
+   ========================================================= */
+.plaque-band {
+  background: var(--gold);
+  color: var(--ink);
+}
+.plaque {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1.1rem 0;
+}
+.plaque-label {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.plaque-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.plaque-count {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  background: rgba(43,38,32,0.1);
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+}
+
+/* =========================================================
+   Generic section rhythm
+   ========================================================= */
+.section {
+  padding: 4.5rem 0;
+}
+.section.on-sand { background: var(--sand); }
+.section.on-dusk { background: var(--indigo-dusk); color: var(--paper); }
+.section.on-dusk h2 { color: var(--paper); }
+.section.on-dusk .eyebrow { color: var(--gold); }
+
+.section-head {
+  max-width: 620px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+.section-head h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); }
+.section-head p { color: var(--ink-soft); }
+.section.on-dusk .section-head p { color: rgba(250,247,241,0.75); }
+
+/* -- History teaser -- */
+.history-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3rem;
+  align-items: center;
+}
+.history-frame {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.history-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* -- Heritage site cards -- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+.site-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.site-card-image {
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(160deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
+}
+.site-card-body { padding: 1.4rem; }
+.site-card-body h3 { font-size: 1.1rem; margin-bottom: 0.35rem; }
+.site-card-body p { font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.site-card-body a { font-size: 0.85rem; font-weight: 600; color: var(--terracotta); }
+
+/* -- Festival list -- */
+.event-list { display: flex; flex-direction: column; gap: 0; max-width: 760px; margin: 0 auto; }
+.event-row {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.event-date {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  background: var(--sand);
+  color: var(--terracotta-dark);
+  padding: 0.5rem 0.7rem;
+  border-radius: 4px;
+  min-width: 78px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.event-info h3 { font-size: 1.05rem; margin: 0 0 0.2rem; }
+.event-info p { font-size: 0.9rem; color: var(--ink-soft); margin: 0; }
+
+/* -- Local promotions / ad slots -- */
+.ad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+.ad-slot {
+  border: 1px dashed rgba(250,247,241,0.4);
+  border-radius: var(--radius);
+  padding: 1.6rem;
+  text-align: center;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+.ad-slot.filled {
+  border-style: solid;
+  background: rgba(250,247,241,0.06);
+}
+.ad-slot p { margin: 0; font-size: 0.85rem; color: rgba(250,247,241,0.75); }
+.ad-slot strong { font-family: var(--font-display); font-size: 1.05rem; color: var(--paper); }
+
+/* -- Gallery -- */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.6rem;
+}
+.gallery-tile {
+  aspect-ratio: 1;
+  border-radius: 4px;
+  background: linear-gradient(135deg, var(--indigo-dusk) 0%, var(--terracotta) 100%);
+  opacity: 0.85;
+}
+
+/* -- Visitor info -- */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+.info-card { text-align: center; padding: 0 1rem; }
+.info-card h3 { font-size: 1.05rem; }
+.info-card p { font-size: 0.92rem; color: var(--ink-soft); }
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.site-footer {
+  background: var(--ink);
+  color: rgba(250,247,241,0.75);
+  padding: 3rem 0 1.6rem;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(250,247,241,0.14);
+}
+.footer-grid h4 { color: var(--paper); font-size: 0.95rem; }
+.footer-grid ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-grid a { font-size: 0.9rem; }
+.footer-grid a:hover { color: var(--gold); }
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.4rem;
+  font-size: 0.82rem;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+.social-row { display: flex; gap: 1rem; }
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 900px) {
+  .history-grid, .card-grid, .ad-grid, .info-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr; }
+  .main-nav { display: none; }
+  .nav-toggle { display: block; }
+  .main-nav.open {
+    display: block;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: var(--indigo-dusk-dark);
+    padding: 1rem 1.5rem 1.5rem;
   }
-
-  const next = upcoming[0];
-  nameEl.textContent = next.name;
-  countEl.textContent = next.days === 0 ? "আজ" : `আর ${next.days} দিন বাকি`;
+  .main-nav.open ul { flex-direction: column; gap: 1rem; }
 }
 
-function renderEventList() {
-  const list = document.getElementById("event-list");
-  if (!list) return;
-
-  const upcoming = FESTIVALS
-    .map(f => ({ ...f, days: daysUntil(f.date) }))
-    .filter(f => f.days >= 0)
-    .sort((a, b) => a.days - b.days);
-
-  list.innerHTML = upcoming.map(f => `
-    <div class="event-row">
-      <div class="event-date">${formatDate(f.date)}</div>
-      <div class="event-info">
-        <h3>${f.name}</h3>
-        <p>${f.description}</p>
-      </div>
-    </div>
-  `).join("");
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
 }
-
-function setupNavToggle() {
-  const toggle = document.getElementById("nav-toggle");
-  const nav = document.getElementById("main-nav");
-  if (!toggle || !nav) return;
-
-  toggle.addEventListener("click", () => {
-    const isOpen = nav.classList.toggle("open");
-    toggle.setAttribute("aria-expanded", String(isOpen));
-  });
-
-  // মোবাইলে লিঙ্কে ট্যাপ করার পর মেনু বন্ধ হয়ে যাবে
-  nav.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-      nav.classList.remove("open");
-      toggle.setAttribute("aria-expanded", "false");
-    });
-  });
-}
-
-function setFooterYear() {
-  const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  renderFestivalPlaque();
-  renderEventList();
-  setupNavToggle();
-  setFooterYear();
-});
