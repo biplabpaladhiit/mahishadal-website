@@ -163,7 +163,11 @@ button, .btn {
    ========================================================= */
 .hero {
   position: relative;
-  background: linear-gradient(180deg, var(--indigo-dusk) 0%, var(--indigo-dusk-dark) 100%);
+  background-image:
+    linear-gradient(180deg, rgba(22,56,55,0.72) 0%, rgba(22,56,55,0.88) 100%),
+    url('images/hero-mahishadal.jpg');
+  background-size: cover;
+  background-position: center 65%;
   color: var(--paper);
   overflow: hidden;
 }
